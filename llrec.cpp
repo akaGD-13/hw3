@@ -8,15 +8,19 @@ using namespace std;
 void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot)
 {
   // if smaller and larger are garbage
-  if (smaller != NULL && smaller->val == NULL){
-    smaller = NULL;
+  if (smaller == head){
+    smaller = nullptr;
   }
-  if (larger != NULL && larger->val == NULL){
-    larger = NULL;
+  if (larger == head){
+    larger = nullptr;
+  }
+  if (smaller == larger){
+    larger = nullptr;
+    smaller = nullptr;
   }
   
   // base case
-  if (head == nullptr){
+  if (head == nullptr || head->val == NULL){
     return;
   }
 
@@ -24,7 +28,7 @@ void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot)
   llpivot(head->next, smaller, larger, pivot);
   if (head->val > pivot){
     
-    //push_front
+    //larger.push_front
     head->next = larger;
     larger = head;
   }
@@ -34,5 +38,6 @@ void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot)
     head->next = smaller;
     smaller = head;
   }
+  head = nullptr;
 
 }

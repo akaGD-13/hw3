@@ -113,10 +113,9 @@ template <typename T, typename PComparator>
 void Heap<T,PComparator>::trickleUp(int loc)
 {
   int parent = (loc-1)/m_;
-  while (parent >= 0 && c_(data[loc], data[parent])){
+  if (parent >= 0 && c_(data[loc], data[parent])){
     swap(data[loc], data[parent]);
-    loc = parent;
-    parent = (loc-1)/m_;
+    trickleUp(parent);
   }
 }
 
@@ -131,21 +130,25 @@ void Heap<T,PComparator>::heapify(int idx)
     return;
   }
 
-  int curr_child = -1;
+  int curr_child;
   // find the best child among all children
   for (int i=1; i < m_; i++){
-    curr_child = betterchild + i;
+    curr_child = m_ *idx + 1 + i;
     // check if curr_child exist:
     if (curr_child < datasize){
-      // right child exists
+      // child exists
       if (c_(data[curr_child] , data[betterchild])){
         betterchild = curr_child; //curr_child  is the "better"child
       }
     }
+    else{
+      // child does not exist
+      break;
+    }
   }
 
   if (c_(data[betterchild], data[idx])){ //child is better than parent
-    std::swap(data[idx], data[betterchild]);
+    std::swap(data[betterchild], data[idx]);
     heapify(betterchild);
   }
 }

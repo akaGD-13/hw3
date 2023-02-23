@@ -83,24 +83,43 @@ Node* llfilter(Node* head, Comp pred)
     //*********************************************
     // Provide your implementation below
     //*********************************************
-    if (head == NULL){
+    if (head == nullptr){
         return head;
     }
 
     bool x = pred(head->val);
 
     if (x){
-        Node* temp = head->next;
-
-        head->val = head->next->val;
-        head->next = head->next->next;
-
-        delete temp;
-
+        return llfilter(head->next, pred);
     }
-    llfilter(head->next, pred);
+    else{
+        head->next = llfilter(head->next, pred);
+        return head;
+    }
 
-    return head;
+
+    // if (x){ // x satisfies filter
+    //     if (head->next == nullptr){
+    //         // head is the only node
+    //         delete head;
+    //         return nullptr;
+    //     }
+    //     else{
+    //         // head is not the only node
+    //         temp = head->next;
+    //         head->val = head->next->val;
+    //         head->next = head->next->next;
+    //         delete temp;
+    //     }
+    //     llfilter(temp, pred);
+    //     // if head is filtered
+    //     return temp;
+    // }
+    // else{
+    //     // if head is not filtered
+    //     return head;
+    // }
+
 
 }
 

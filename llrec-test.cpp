@@ -103,7 +103,7 @@ int main(int argc, char* argv[])
     // Test out your linked list code
     ITB pred;
 
-    print(llfilter(head,pred));
+    // print(llfilter(head,pred));
     
     Node* small = NULL;
     Node* large = NULL;
