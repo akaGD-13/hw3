@@ -67,6 +67,21 @@ void dealloc(Node* head)
 //   function object struct declarations
 // -----------------------------------------------
 
+class ITB{
+    public:
+        ITB();
+        bool operator()(int num);
+};
+
+ITB::ITB(){
+}
+
+bool ITB::operator()(int num){
+    if (num%2 == 1){
+        return true;
+    }
+    return false;
+}
 
 
 
@@ -86,6 +101,15 @@ int main(int argc, char* argv[])
     print(head);
 
     // Test out your linked list code
+    ITB pred;
+
+    print(llfilter(head,pred));
+    
+    Node* small = NULL;
+    Node* large = NULL;
+    llpivot(head, small, large, 10);
+    print(small);
+    print(large);
 
 
 
